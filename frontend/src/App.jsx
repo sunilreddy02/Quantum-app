@@ -4,13 +4,21 @@ function App() {
   const [msg, setMsg] = useState("");
 
   const getData = async () => {
-    const res = await fetch("http://localhost:5000/hello");
-    const data = await res.json();
-    setMsg(data.message);
+    try {
+      const res = await fetch(
+        "https://quantum-app-backend.onrender.com/hello"
+      );
+
+      const data = await res.json();
+      setMsg(data.message);
+    } catch (error) {
+      console.error(error);
+      setMsg("Backend connection failed");
+    }
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Quantum App</h1>
 
       <button onClick={getData}>
